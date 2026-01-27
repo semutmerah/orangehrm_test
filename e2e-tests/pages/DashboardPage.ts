@@ -10,7 +10,7 @@ export class DashboardPage {
     }
 
     async verifyDashboardLoaded() {
-        await expect(this.page).toHaveURL(/.*dashboard/, { timeout: 10000 });
-        await expect(this.dashboardHeading).toBeVisible({ timeout: 10000 });
+        await expect(this.page).toHaveURL(/.*dashboard/);
+        await expect(this.dashboardHeading).toBeVisible();
     }
 }

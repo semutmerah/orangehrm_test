@@ -37,6 +37,9 @@ export default defineConfig({
     /* Capture video on test failure */
     video: 'retain-on-failure',
   },
+  expect: {
+    timeout: 15_000,
+  },
 
   /* Configure projects for major browsers */
   projects: [

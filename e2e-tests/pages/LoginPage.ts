@@ -41,10 +41,10 @@ export class LoginPage {
 
     async verifyInvalidCredentialsError() {
         // Wait for the page to navigate back to login after validation
-        await this.page.waitForURL(/.*login/, { timeout: 10000 });
+        await this.page.waitForURL(/.*login/);
 
         // Now check for the alert
-        await expect(this.invalidCredentialsAlert).toBeVisible({ timeout: 10000 });
+        await expect(this.invalidCredentialsAlert).toBeVisible();
         await expect(this.invalidCredentialsAlert).toContainText('Invalid credentials');
     }
 
