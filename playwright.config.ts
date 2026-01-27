@@ -26,27 +26,62 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL: 'https://opensource-demo.orangehrmlive.com',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Capture screenshot on test failure */
+    screenshot: 'only-on-failure',
+
+    /* Capture video on test failure */
+    video: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
   projects: [
+    // Setup project that runs first
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
+
+    // Authenticated tests (excludes authentication folder)
     {
       name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'e2e-tests/.auth/user.json',
+      },
+      dependencies: ['setup'],
+      testIgnore: '**/authentication/**',
+    },
+
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     storageState: 'e2e-tests/.auth/user.json',
+    //   },
+    //   dependencies: ['setup'],
+    //   testIgnore: '**/authentication/**',
+    // },
+
+    // {
+    //   name: 'webkit',
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     storageState: 'e2e-tests/.auth/user.json',
+    //   },
+    //   dependencies: ['setup'],
+    //   testIgnore: '**/authentication/**',
+    // },
+
+    // Authentication tests (no stored state, no setup dependency)
+    {
+      name: 'auth-tests',
+      testMatch: '**/authentication/**/*.spec.ts',
       use: { ...devices['Desktop Chrome'] },
-    },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
     },
 
     /* Test against mobile viewports. */
