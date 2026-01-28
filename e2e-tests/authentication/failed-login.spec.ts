@@ -4,12 +4,14 @@ import { LoginPage } from '../pages/LoginPage';
 test.describe('Failed Login Scenarios', () => {
     let loginPage: LoginPage;
 
-    test.beforeEach(async ({ page }) => {
+    test.beforeEach(async ({ browser }) => {
+        const context = await browser.newContext({ storageState: { cookies: [], origins: [] } });
+        const page = await context.newPage();
         loginPage = new LoginPage(page);
         await loginPage.goto();
     });
 
-    test('Should show required error when both username and password are empty', async ({ page }) => {
+    test('Should show required error when both username and password are empty', async () => {
         // Click login without filling any fields
         await loginPage.clickLogin();
 
@@ -21,7 +23,7 @@ test.describe('Failed Login Scenarios', () => {
         await loginPage.verifyPasswordHasError();
     });
 
-    test('Should show required error when only username is filled', async ({ page }) => {
+    test('Should show required error when only username is filled', async () => {
         // Fill only username
         await loginPage.fillUsername('WrongUser');
         await loginPage.clickLogin();
@@ -33,7 +35,7 @@ test.describe('Failed Login Scenarios', () => {
         await loginPage.verifyPasswordHasError();
     });
 
-    test('Should show required error when only password is filled', async ({ page }) => {
+    test('Should show required error when only password is filled', async () => {
         // Fill only password
         await loginPage.fillPassword('WrongPass');
         await loginPage.clickLogin();
@@ -45,7 +47,7 @@ test.describe('Failed Login Scenarios', () => {
         await loginPage.verifyUsernameHasError();
     });
 
-    test('Should show invalid credentials error with wrong username and password', async ({ page }) => {
+    test('Should show invalid credentials error with wrong username and password', async () => {
         // Attempt login with invalid credentials
         await loginPage.login('WrongUser', 'WrongPass');
 
@@ -53,10 +55,10 @@ test.describe('Failed Login Scenarios', () => {
         await loginPage.verifyInvalidCredentialsError();
 
         // Verify we're still on the login page
-        await expect(page).toHaveURL(/.*login/);
+        await expect(loginPage.page).toHaveURL(/.*login/);
     });
 
-    test('Should show invalid credentials error with correct username but wrong password', async ({ page }) => {
+    test('Should show invalid credentials error with correct username but wrong password', async () => {
         // Attempt login with correct username but wrong password
         await loginPage.login('Admin', 'WrongPassword123');
 
@@ -64,10 +66,10 @@ test.describe('Failed Login Scenarios', () => {
         await loginPage.verifyInvalidCredentialsError();
 
         // Verify we're still on the login page
-        await expect(page).toHaveURL(/.*login/);
+        await expect(loginPage.page).toHaveURL(/.*login/);
     });
 
-    test('Should show invalid credentials error with wrong username but correct password', async ({ page }) => {
+    test('Should show invalid credentials error with wrong username but correct password', async () => {
         // Attempt login with wrong username but correct password
         await loginPage.login('WrongAdmin', 'admin123');
 
@@ -75,10 +77,10 @@ test.describe('Failed Login Scenarios', () => {
         await loginPage.verifyInvalidCredentialsError();
 
         // Verify we're still on the login page
-        await expect(page).toHaveURL(/.*login/);
+        await expect(loginPage.page).toHaveURL(/.*login/);
     });
 
-    test('Should show invalid credentials error with empty username and correct password', async ({ page }) => {
+    test('Should show invalid credentials error with empty username and correct password', async () => {
         // Fill only password with correct credentials
         await loginPage.fillPassword('admin123');
         await loginPage.clickLogin();
@@ -88,7 +90,7 @@ test.describe('Failed Login Scenarios', () => {
         await loginPage.verifyUsernameHasError();
     });
 
-    test('Should show invalid credentials error with correct username and empty password', async ({ page }) => {
+    test('Should show invalid credentials error with correct username and empty password', async () => {
         // Fill only username with correct credentials
         await loginPage.fillUsername('Admin');
         await loginPage.clickLogin();

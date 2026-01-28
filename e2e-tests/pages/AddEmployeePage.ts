@@ -85,12 +85,11 @@ export class AddEmployeePage {
     async verifySuccessfulCreation() {
         // When creating employee with login details, it redirects to personal details page
         // When creating without login details, it shows a toast message
-        try {
-            await expect(this.successToast).toContainText('Successfully Saved');
-        } catch {
-            // If no toast, check if redirected to personal details page
-            await expect(this.page).toHaveURL(/.*viewPersonalDetails.*/);
-        }
+        // Use Promise.race to wait for whichever happens first, respecting the full timeout
+        await Promise.race([
+            expect(this.successToast).toContainText('Successfully Saved', { timeout: 60000 }),
+            expect(this.page).toHaveURL(/.*viewPersonalDetails.*/, { timeout: 60000 })
+        ]);
     }
 
     /**

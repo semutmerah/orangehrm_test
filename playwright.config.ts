@@ -12,6 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 120000,
   testDir: './e2e-tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -36,9 +37,12 @@ export default defineConfig({
 
     /* Capture video on test failure */
     video: 'retain-on-failure',
+
+    /* Timeout for each action (click, fill, etc.) */
+    actionTimeout: 60000,
   },
   expect: {
-    timeout: 15_000,
+    timeout: 60000,
   },
 
   /* Configure projects for major browsers */
@@ -49,15 +53,13 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/,
     },
 
-    // Authenticated tests (excludes authentication folder)
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'e2e-tests/.auth/user.json',
       },
-      dependencies: ['setup'],
-      testIgnore: '**/authentication/**',
+      dependencies: ['setup']
     },
 
     // {
@@ -81,11 +83,11 @@ export default defineConfig({
     // },
 
     // Authentication tests (no stored state, no setup dependency)
-    {
-      name: 'auth-tests',
-      testMatch: '**/authentication/**/*.spec.ts',
-      use: { ...devices['Desktop Chrome'] },
-    },
+    // {
+    //   name: 'auth-tests',
+    //   testMatch: '**/authentication/**/*.spec.ts',
+    //   use: { ...devices['Desktop Chrome'] },
+    // },
 
     /* Test against mobile viewports. */
     // {

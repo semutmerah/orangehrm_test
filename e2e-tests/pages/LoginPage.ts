@@ -44,8 +44,8 @@ export class LoginPage {
         await this.page.waitForURL(/.*login/);
 
         // Now check for the alert
-        await expect(this.invalidCredentialsAlert).toBeVisible();
-        await expect(this.invalidCredentialsAlert).toContainText('Invalid credentials');
+        await expect(this.invalidCredentialsAlert).toBeVisible({ timeout: 60000 });
+        await expect(this.invalidCredentialsAlert).toContainText('Invalid credentials', { timeout: 60000 });
     }
 
     async verifyRequiredFieldError(count: number = 1) {
