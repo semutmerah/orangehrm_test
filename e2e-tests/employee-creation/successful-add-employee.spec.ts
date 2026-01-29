@@ -23,7 +23,7 @@ test('Successful Add Employee', async ({ page }) => {
     await addEmployeePage.verifySuccessfulCreation();
 });
 
-test('Successful Add Employee with Login Details', async ({ page }) => {
+test('Successful Add Employee with Login Details @smoke', async ({ page }) => {
     const addEmployeePage = new AddEmployeePage(page);
 
     // Navigate to the Add Employee page (already authenticated via setup)

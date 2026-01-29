@@ -39,7 +39,7 @@ test.describe('Employee Update Tests', () => {
         employeeNumber = await personalDetailsPage.extractEmployeeNumber();
     });
 
-    test('Successful Update Personal Details', async ({ page }) => {
+    test('Successful Update Personal Details @smoke', async ({ page }) => {
         const personalDetailsPage = new PersonalDetailsPage(page);
 
         // Navigate to Personal Details page
@@ -62,7 +62,7 @@ test.describe('Employee Update Tests', () => {
         await personalDetailsPage.verifySuccessfulUpdate();
     });
 
-    test('Successful Update Contact Details', async ({ page }) => {
+    test('Successful Update Contact Details @smoke', async ({ page }) => {
         const contactDetailsPage = new ContactDetailsPage(page);
 
         // Navigate to Contact Details page

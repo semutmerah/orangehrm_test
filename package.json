@@ -12,7 +12,10 @@
     "test:staging:ui": "ENV=staging playwright test --ui",
     "test:production:ui": "ENV=production playwright test --ui",
     "test:staging:debug": "ENV=staging playwright test --debug",
-    "test:production:debug": "ENV=production playwright test --debug"
+    "test:production:debug": "ENV=production playwright test --debug",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:staging:smoke": "ENV=staging playwright test --grep @smoke",
+    "test:production:smoke": "ENV=production playwright test --grep @smoke"
   },
   "keywords": [],
   "author": "",

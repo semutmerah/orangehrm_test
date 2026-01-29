@@ -3,7 +3,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { getConfig } from '../config/environment';
 
-test("Should able to login successfully", async ({ browser }) => {
+test("Should able to login successfully @smoke", async ({ browser }) => {
     const context = await browser.newContext({ storageState: { cookies: [], origins: [] } });
     const page = await context.newPage();
     const loginPage = new LoginPage(page);

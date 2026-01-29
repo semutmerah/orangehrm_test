@@ -28,7 +28,7 @@ test.describe('Employee Deletion Tests', () => {
         await addEmployeePage.verifySuccessfulCreation();
     });
 
-    test('Successful Delete Employee', async ({ page }) => {
+    test('Successful Delete Employee @smoke', async ({ page }) => {
         const viewEmployeePage = new ViewEmployeePage(page);
 
         // Navigate to Employee List page

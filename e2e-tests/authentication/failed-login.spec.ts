@@ -12,7 +12,7 @@ test.describe('Failed Login Scenarios', () => {
         await loginPage.goto();
     });
 
-    test('Should show required error when both username and password are empty', async () => {
+    test('Should show required error when both username and password are empty @smoke', async () => {
         // Click login without filling any fields
         await loginPage.clickLogin();
 
