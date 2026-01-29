@@ -3,7 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:staging": "ENV=staging playwright test",
+    "test:production": "ENV=production playwright test",
+    "test:staging:headed": "ENV=staging playwright test --headed",
+    "test:production:headed": "ENV=production playwright test --headed",
+    "test:staging:ui": "ENV=staging playwright test --ui",
+    "test:production:ui": "ENV=production playwright test --ui",
+    "test:staging:debug": "ENV=staging playwright test --debug",
+    "test:production:debug": "ENV=production playwright test --debug"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,5 +22,8 @@
     "@faker-js/faker": "^10.2.0",
     "@playwright/test": "^1.58.0",
     "@types/node": "^25.0.10"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
   }
 }

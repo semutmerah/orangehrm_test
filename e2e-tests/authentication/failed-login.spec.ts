@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
+import { getConfig } from '../config/environment';
 
 test.describe('Failed Login Scenarios', () => {
     let loginPage: LoginPage;
@@ -59,8 +60,10 @@ test.describe('Failed Login Scenarios', () => {
     });
 
     test('Should show invalid credentials error with correct username but wrong password', async () => {
+        const config = getConfig();
+
         // Attempt login with correct username but wrong password
-        await loginPage.login('Admin', 'WrongPassword123');
+        await loginPage.login(config.username, 'WrongPassword123');
 
         // Verify invalid credentials alert is displayed
         await loginPage.verifyInvalidCredentialsError();
@@ -70,8 +73,10 @@ test.describe('Failed Login Scenarios', () => {
     });
 
     test('Should show invalid credentials error with wrong username but correct password', async () => {
+        const config = getConfig();
+
         // Attempt login with wrong username but correct password
-        await loginPage.login('WrongAdmin', 'admin123');
+        await loginPage.login('WrongAdmin', config.password);
 
         // Verify invalid credentials alert is displayed
         await loginPage.verifyInvalidCredentialsError();
@@ -81,8 +86,10 @@ test.describe('Failed Login Scenarios', () => {
     });
 
     test('Should show invalid credentials error with empty username and correct password', async () => {
+        const config = getConfig();
+
         // Fill only password with correct credentials
-        await loginPage.fillPassword('admin123');
+        await loginPage.fillPassword(config.password);
         await loginPage.clickLogin();
 
         // Verify username field shows "Required" error (not invalid credentials)
@@ -91,8 +98,10 @@ test.describe('Failed Login Scenarios', () => {
     });
 
     test('Should show invalid credentials error with correct username and empty password', async () => {
+        const config = getConfig();
+
         // Fill only username with correct credentials
-        await loginPage.fillUsername('Admin');
+        await loginPage.fillUsername(config.username);
         await loginPage.clickLogin();
 
         // Verify password field shows "Required" error (not invalid credentials)
