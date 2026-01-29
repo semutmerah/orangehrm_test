@@ -3,7 +3,7 @@
 This folder contains performance test scripts for the OrangeHRM REST API using [k6](https://k6.io/).
 
 ## 📋 Prerequisites
-- **[k6](https://k6.io/docs/getting-started/installation/)** (v0.43.0+) installed on your machine.
+- **[k6](https://grafana.com/docs/k6/latest/set-up/install-k6/)** (v1.4+) installed on your machine. Put the binary in `/usr/local/bin`
 - **OrangeHRM instance** running at `http://localhost:8080`.
 - **Environment config**: A `.env` file inside the `performance-tests` folder with valid credentials.
 
