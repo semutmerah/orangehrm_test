@@ -3,6 +3,15 @@ on:
   # push:
   #   branches: [ main ]
   workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Select test suite to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - smoke
 
 jobs:
   test:
@@ -28,7 +37,12 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=blob
+      run: |
+        if [ "${{ github.event.inputs.test_type }}" == "smoke" ]; then
+          npx playwright test --grep "@smoke" --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=blob
+        else
+          npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=blob
+        fi
       env:
         ENV: production
         BASE_URL: ${{ secrets.BASE_URL }}
