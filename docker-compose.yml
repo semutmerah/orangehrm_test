@@ -29,6 +29,24 @@ services:
     restart: unless-stopped
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    container_name: playwright_tests
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - ENV=staging
+      - BASE_URL=http://web:80
+    depends_on:
+      - web
+    networks:
+      - orangehrm_network
+    profiles:
+      - test
+
 volumes:
   orangehrm_data:
     driver: local
