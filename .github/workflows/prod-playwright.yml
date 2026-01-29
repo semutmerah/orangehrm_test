@@ -28,7 +28,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=blob
       env:
         ENV: production
         BASE_URL: ${{ secrets.BASE_URL }}
@@ -40,7 +40,7 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: playwright-report-production-${{ matrix.shardIndex }}
-        path: playwright-report/
+        path: blob-report/
         retention-days: 1
 
   merge-reports:
