@@ -38,7 +38,7 @@ test('Successful Add Employee with Login Details', async ({ page }) => {
     const username = faker.internet.username();
     // Generate a password that meets OrangeHRM requirements
     // Requirements: min 8 chars, at least 1 uppercase, 1 lowercase, 1 number
-    const password = `Pass${faker.string.alphanumeric(6)}123`;
+    const password = `Pass${faker.string.alphanumeric(6)}@54321`;
 
     // Add employee with photo and login details
     await addEmployeePage.addEmployee(firstName, middleName, lastName, photoPath, employeeId, username, password);

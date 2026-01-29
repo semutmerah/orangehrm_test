@@ -12,7 +12,7 @@ setup('authenticate', async ({ page }) => {
     await loginPage.goto();
 
     // Perform login
-    await loginPage.login('Admin', 'admin123');
+    await loginPage.login('Admin', 'Admin@54321');
 
     // Verify successful login
     await dashboardPage.verifyDashboardLoaded();

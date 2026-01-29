@@ -1,0 +1,40 @@
+services:
+  web:
+    image: orangehrm/orangehrm:5.8
+    container_name: orangehrm_web
+    ports:
+      - "8080:80"
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    volumes:
+      - orangehrm_data:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - orangehrm_network
+    restart: unless-stopped
+
+  db:
+    image: mariadb:lts-noble
+    container_name: orangehrm_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=orangehrm
+      - MYSQL_USER=orangehrm
+      - MYSQL_PASSWORD=orangehrm
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - orangehrm_network
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+volumes:
+  orangehrm_data:
+    driver: local
+  db_data:
+    driver: local
+
+networks:
+  orangehrm_network:
+    driver: bridge

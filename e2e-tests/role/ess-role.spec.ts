@@ -30,7 +30,7 @@ test.describe('ESS Role Tests', () => {
         username = faker.internet.username();
         // Generate a password that meets OrangeHRM requirements
         // Requirements: min 8 chars, at least 1 uppercase, 1 lowercase, 1 number
-        password = `Pass${faker.string.alphanumeric(6)}123`;
+        password = `Pass${faker.string.alphanumeric(6)}@54321`;
 
         // Add employee with photo and login details
         await addEmployeePage.addEmployee(firstName, middleName, lastName, photoPath, employeeId, username, password);
